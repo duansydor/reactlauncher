@@ -1,49 +1,62 @@
 import * as React from "react";
-import { Button, H1, ListItem, ScrollView, Text, XStack, YStack } from "tamagui";
+import {
+  Button,
+  H1,
+  ListItem,
+  ScrollView,
+  Text,
+  XStack,
+  YStack,
+} from "tamagui";
 import { StyleSheet } from "react-native";
 import { Video, ResizeMode } from "expo-av";
 import AnimeCard from "../../Components/AnimeCard";
-
-
+import { BASE_ANIME_URL } from "../../Utils/Variables";
 
 const HomeScreen = ({ navigation }) => {
   const video = React.useRef(null);
   const [status, setStatus] = React.useState();
   const [jsonData, setJsonData] = React.useState(null);
-  React.useEffect(()=>{
+  const [genreList, setGenreList] = React.useState(null);
+  React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://192.168.1.103:3000/anime/gogoanime/top-airing');
+        const response = await fetch(`${BASE_ANIME_URL}/top-airing`);
+        const genresResponse = await fetch(`${BASE_ANIME_URL}/genre/list`);
+        const genresList = await genresResponse.json();
         const data = await response.json();
         setJsonData(data.results);
+        setGenreList(genresList);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  },[])
+  }, []);
 
   return (
     <YStack m={"$4"}>
+      <ScrollView>
       <H1 mb={"$4"}>Top trending</H1>
-      
-    
+
       <ScrollView horizontal={true} mb={"$4"}>
         <XStack>
-        {jsonData ? (
-        <XStack>
-          {
-            jsonData.map((item)=>{
-              return(
-                <AnimeCard navigation={navigation} key={item.id} anime={item}/>
-              )
-            })
-          }
-        </XStack>
-      ) : (
-        <Text>Loading...</Text>
-      )}
+          {jsonData ? (
+            <XStack>
+              {jsonData.map((item) => {
+                return (
+                  <AnimeCard
+                    navigation={navigation}
+                    key={item.id}
+                    anime={item}
+                  />
+                );
+              })}
+            </XStack>
+          ) : (
+            <Text>Loading...</Text>
+          )}
         </XStack>
       </ScrollView>
       {/* <Video
@@ -57,25 +70,19 @@ const HomeScreen = ({ navigation }) => {
         isLooping
         onPlaybackStatusUpdate={(status) => setStatus(() => status)}
       /> */}
-      <XStack>
-        <Button
-          bg={"$accentBackground"}
-          color={"$accentColor"}
-          animation="quick"
-          elevation="$0.25"
-          hoverStyle={{
-            scale: 1.02,
-          }}
-          pressStyle={{
-            scale: 0.9,
-          }}
-          onPress={() => {
-            navigation.navigate("Profile");
-          }}
-        >
-          Ver Perfil
-        </Button>
-      </XStack>
+      
+        <XStack>
+          {genreList ? (
+            <XStack flex={1} flexWrap="wrap" gap={"$4"}>
+              {genreList.map((item) => {
+                return <Text>{item.title}</Text>;
+              })}
+            </XStack>
+          ) : (
+            <Text>Loading...</Text>
+          )}
+        </XStack>
+      </ScrollView>
     </YStack>
   );
 };

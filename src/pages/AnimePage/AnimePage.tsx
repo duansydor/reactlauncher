@@ -14,21 +14,20 @@ import {
   XStack,
   YStack,
 } from "tamagui";
+import { BASE_ANIME_URL } from "../../Utils/Variables";
 
 const AnimePage = () => {
   const videoRef = React.useRef(null);
 
   const route = useRoute();
-  const anime = route.params;
+  const anime:any = route.params;
   const [status, setStatus] = React.useState();
 
   const [jsonData, setJsonData] = React.useState(null);
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          `http://192.168.1.103:3000/anime/gogoanime/info/${anime.id}`
-        );
+        const response = await fetch(`${BASE_ANIME_URL}/info/${anime.id}`);
         const data = await response.json();
         setJsonData(data);
         changeVideoSource(data.episodes[0].id);
@@ -39,13 +38,10 @@ const AnimePage = () => {
     fetchData();
   }, []);
   const changeVideoSource = async (id) => {
-
     try {
-        const response = await fetch(
-                `http://192.168.1.103:3000/anime/gogoanime/watch/${id}`
-        );
-        const link = await response.json();
-        console.log(link.sources[1])
+      const response = await fetch(`${BASE_ANIME_URL}/watch/${id}`);
+      const link = await response.json();
+      console.log(link.sources[1]);
       if (videoRef.current) {
         await videoRef.current.unloadAsync(); // Unload previous video
         await videoRef.current.loadAsync({
@@ -58,9 +54,9 @@ const AnimePage = () => {
     }
   };
   return (
-    <YStack ai="center">
+    <YStack ai="center" m={"$2"}>
       {jsonData ? (
-        <YStack>
+        <YStack m={"$4"}>
           <Video
             ref={videoRef}
             style={styles.video}
@@ -70,17 +66,20 @@ const AnimePage = () => {
             useNativeControls
             resizeMode={ResizeMode.CONTAIN}
             isLooping
-            onPlaybackStatusUpdate={(status) => setStatus(() => status)}
+            onPlaybackStatusUpdate={(status:any) => setStatus(() => status)}
           />
-          
+
           <H1>{jsonData.title}</H1>
-          <H2 mt={"$4"} mb={"$4"}>
-            Episodes
-          </H2>
-          <XStack space>
+          <H2>Episodes</H2>
+          <XStack mt={"$4"} flex={1} w="full" flexWrap="wrap" gap={"$4"}>
             {jsonData.episodes.map((ep) => {
               return (
-                <Button theme="blue_active" onPress={() =>{changeVideoSource(ep.id)}}>
+                <Button
+                  theme="blue_active"
+                  onPress={() => {
+                    changeVideoSource(ep.id);
+                  }}
+                >
                   <Text>{ep.number}</Text>
                 </Button>
               );
