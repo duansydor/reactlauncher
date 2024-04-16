@@ -6,6 +6,9 @@
     "orientation": "",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "experiments": {
+      "baseUrl": "/reactlauncher"
+    },
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -25,6 +28,7 @@
       "package": "com.duansydor.reactlauncher"
     },
     "web": {
+      "output": "single",
       "favicon": "./assets/favicon.png"
     },
     "extra": {
