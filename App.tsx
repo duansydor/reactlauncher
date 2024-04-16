@@ -9,10 +9,10 @@ import ProfileScreen from "./src/pages/ProfileScreen/ProfileScreen";
 import myDrawer from "./src/Components/myDrawer";
 import AnimePage from "./src/pages/AnimePage/AnimePage";
 import CategoryPage from "./src/pages/CategoryPage/CategoryPage";
-
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+
   const [loaded] = useFonts({
     Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
     InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf"),
@@ -31,7 +31,7 @@ export default function App() {
         />
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="AnimePage" component={AnimePage} />
-        <Stack.Screen name="CategoryPage" component={CategoryPage} />
+        <Stack.Screen name="CategoryPage" component={CategoryPage}/>
 
         </Stack.Navigator>
       </TamaguiProvider>

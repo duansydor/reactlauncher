@@ -12,8 +12,11 @@ import { StyleSheet } from "react-native";
 import { Video, ResizeMode } from "expo-av";
 import AnimeCard from "../../Components/AnimeCard";
 import { BASE_ANIME_URL } from "../../Utils/Variables";
+import { useNavigation } from "@react-navigation/native";
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = () => {
+  const navigation = useNavigation();
+  
   const video = React.useRef(null);
   const [status, setStatus] = React.useState();
   const [jsonData, setJsonData] = React.useState(null);
@@ -71,16 +74,23 @@ const HomeScreen = ({ navigation }) => {
         onPlaybackStatusUpdate={(status) => setStatus(() => status)}
       /> */}
       
-        <XStack>
+        <XStack >
           {genreList ? (
-            <XStack flex={1} flexWrap="wrap" gap={"$4"}>
+          <XStack justifyContent="center" flex={1} flexWrap="wrap" gap={"$4"}>
               {genreList.map((item) => {
-                return <Text>{item.title}</Text>;
+                return (
+                <Button 
+                key={item.id} 
+                theme="blue_active"
+                onPress={():any=>{
+                  navigation.navigate("CategoryPage", item.id)
+                }}>
+
+                  {item.title}
+                  </Button>);
               })}
             </XStack>
-          ) : (
-            <Text>Loading...</Text>
-          )}
+          ) : console.log("carregando")}
         </XStack>
       </ScrollView>
     </YStack>
