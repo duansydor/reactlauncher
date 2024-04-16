@@ -2,6 +2,7 @@ import * as React from "react";
 import {
   Button,
   H1,
+  Input,
   ListItem,
   ScrollView,
   Text,
@@ -19,6 +20,7 @@ const HomeScreen = () => {
   
   const video = React.useRef(null);
   const [status, setStatus] = React.useState();
+  const [search, setSearch] = React.useState("");
   const [jsonData, setJsonData] = React.useState(null);
   const [genreList, setGenreList] = React.useState(null);
   React.useEffect(() => {
@@ -40,6 +42,10 @@ const HomeScreen = () => {
 
   return (
     <YStack m={"$4"}>
+      <XStack alignItems="center" space="$2"theme="blue_active" >
+      <Input theme="blue" flex={1} size={"$4"} placeholder={`Search`} onChangeText={newSearch =>{setSearch(newSearch)}}/>
+      <Button size={"$4"} onPress={()=>{navigation.navigate("SearchPage",search)}}>Go</Button>
+    </XStack>
       <ScrollView>
       <H1 mb={"$4"}>Top trending</H1>
 

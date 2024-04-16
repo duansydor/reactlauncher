@@ -9,6 +9,7 @@ import ProfileScreen from "./src/pages/ProfileScreen/ProfileScreen";
 import myDrawer from "./src/Components/myDrawer";
 import AnimePage from "./src/pages/AnimePage/AnimePage";
 import CategoryPage from "./src/pages/CategoryPage/CategoryPage";
+import SearchPage from "./src/pages/SearchPage/SearchPage";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -32,6 +33,7 @@ export default function App() {
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="AnimePage" component={AnimePage} />
         <Stack.Screen name="CategoryPage" component={CategoryPage}/>
+        <Stack.Screen name="SearchPage" component={SearchPage}/>
 
         </Stack.Navigator>
       </TamaguiProvider>

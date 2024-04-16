@@ -8,6 +8,5 @@ https://docs.consumet.org/rest-api/Anime/gogoanime/
  - [] Anime Pagination
  - [] Favourite Animes feature
  - [] Search feature
- - [] Category page
- - [] Genre page 
+ - [x] Genre page 
  - [] Profile page

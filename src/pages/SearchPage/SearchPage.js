@@ -5,14 +5,15 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { Button } from "tamagui";
 
 
-const CategoryPage = () => {
-  const route = useRoute();
-  const navigation = useNavigation();
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [hasNextPage, setHasNextPage] = useState(false);
-  const [results, setResults] = useState([]);
-  const [refreshing, setRefreshing] = useState(false);
-  const categoryID = route.params;
+const SearchPage = () => {
+   const route = useRoute();
+   const navigation = useNavigation();
+   const [currentPage, setCurrentPage] = useState(1);
+   const [hasNextPage, setHasNextPage] = useState(false);
+   const [results, setResults] = useState([]);
+   const [refreshing, setRefreshing] = useState(false);
+   const search = route.params;
+  console.log(search)
   useEffect(() => {
     console.log(typeof currentPage)
     fetchData();
@@ -22,7 +23,7 @@ const CategoryPage = () => {
     
     try {
       const response = await fetch(
-        `${BASE_ANIME_URL}/genre/${categoryID}?page=${currentPage}`
+        `${BASE_ANIME_URL}/${search}?page=${currentPage}`
       );
       const data = await response.json();
       if (data != undefined) {
@@ -124,4 +125,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CategoryPage;
+export default SearchPage;

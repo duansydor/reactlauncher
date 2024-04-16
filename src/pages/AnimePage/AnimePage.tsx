@@ -9,6 +9,7 @@ import {
   H2,
   Image,
   Paragraph,
+  ScrollView,
   Select,
   Text,
   XStack,
@@ -20,7 +21,7 @@ const AnimePage = () => {
   const videoRef = React.useRef(null);
 
   const route = useRoute();
-  const anime:any = route.params;
+  const anime: any = route.params;
   const [status, setStatus] = React.useState();
 
   const [jsonData, setJsonData] = React.useState(null);
@@ -66,25 +67,27 @@ const AnimePage = () => {
             useNativeControls
             resizeMode={ResizeMode.CONTAIN}
             isLooping
-            onPlaybackStatusUpdate={(status:any) => setStatus(() => status)}
+            onPlaybackStatusUpdate={(status: any) => setStatus(() => status)}
           />
 
           <H1>{jsonData.title}</H1>
           <H2>Episodes</H2>
-          <XStack mt={"$4"} flex={1} w="full" flexWrap="wrap" gap={"$4"}>
-            {jsonData.episodes.map((ep) => {
-              return (
-                <Button
-                  theme="blue_active"
-                  onPress={() => {
-                    changeVideoSource(ep.id);
-                  }}
-                >
-                  <Text>{ep.number}</Text>
-                </Button>
-              );
-            })}
-          </XStack>
+          <ScrollView flex={1} >
+            <XStack justifyContent="center" mt={"$4"} flex={1} w="full" flexWrap="wrap" gap={"$4"}>
+              {jsonData.episodes.map((ep) => {
+                return (
+                  <Button
+                    theme="blue_active"
+                    onPress={() => {
+                      changeVideoSource(ep.id);
+                    }}
+                  >
+                    <Text>{ep.number}</Text>
+                  </Button>
+                );
+              })}
+            </XStack>
+          </ScrollView>
         </YStack>
       ) : (
         <Text>Loading...</Text>
