@@ -67,16 +67,14 @@ const CategoryPage = () => {
               <Button
                theme={"surface1"}
                variant="outlined"
-               flex={1}
-               flexDirection="column"
-               alignItems="flex-start"
+               
                onPress={()=>{
                 navigation.navigate("AnimePage",item)
                }}
                >
-                {item.title}
+                
           
-                <Text>{item.released}</Text>
+                <Text>{item.title} - {item.released}</Text>
                 </Button>
             </View>
           </View>

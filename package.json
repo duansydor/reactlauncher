@@ -19,7 +19,7 @@
     "@tamagui/babel-plugin": "^1.94.4",
     "@tamagui/config": "^1.94.4",
     "@tamagui/metro-plugin": "^1.94.4",
-    "expo": "~50.0.14",
+    "expo": "^50.0.17",
     "expo-av": "~13.10.5",
     "expo-linking": "^6.2.2",
     "expo-router": "^3.4.8",
